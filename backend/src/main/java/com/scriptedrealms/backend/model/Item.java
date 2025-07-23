@@ -1,10 +1,19 @@
 package com.scriptedrealms.backend.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Item {
-    Long id;
-    String name;
-    String type;
-    String description;
-    int quantity;
-    int value;
+    private Long id;
+    private String name;
+    private String type;
+    private String description;
+    private int quantity;
+    private int value;
 }
