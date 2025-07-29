@@ -1,73 +1,119 @@
+import Button from "../components/Button.tsx";
+
 const HomePage = () => {
     return (
         <div className="bg-bg text-text transition-colors duration-300">
             {/* 1. Hero Section */}
-            <section className="relative bg-surface min-h-screen flex flex-col items-center justify-center text-center px-6 overflow-hidden">
-                <video
-                    className="absolute top-0 left-0 w-full h-full object-cover z-0"
-                    src="/hero-background.mp4"
-                    autoPlay
-                    loop
-                    muted
-                    playsInline
+            <section className="relative min-h-screen flex flex-col items-center justify-center text-center px-6 overflow-hidden bg-surface">
+                {/* Background Image */}
+                <img
+                    src="/images/herobackground.png"
+                    alt="Fantasy Hero Background"
+                    className="absolute inset-0 w-full h-full object-cover"
                 />
-                <div className="absolute top-0 left-0 w-full h-full bg-black/30 backdrop-blur-sm z-10" />
-                <div className="relative z-20">
-                    <h1 className="text-primary text-5xl font-bold mb-4 text-outline-soft">Scripted Realms</h1>
-                    <p className="text-muted text-xl">
+
+                {/* Dark gradient overlay for contrast */}
+                <div className="absolute inset-0 bg-black/20  z-10" />
+
+                {/* Content */}
+                <div className="relative z-20 max-w-2xl mx-auto">
+                    <h1 className="text-6xl font-bold mb-4 text-text font-cinzel text-center glow-text">
+                        Scripted Realms
+                    </h1>
+                    <p className="text-xl text-muted drop-shadow">
                         A free, open-source, web-based world builder for fantasy role-playing games.
                     </p>
-                    <button className="mt-8 bg-accent text-bg px-8 py-4 rounded text-lg font-semibold hover:opacity-90">
-                        Join the Beta
-                    </button>
-                    <p className="mt-4 text-muted text-sm">
-                        By joining the beta, you agree to our{" "}
-                        <a href="#" className="text-accent">Terms of Service</a> and{" "}
-                        <a href="#" className="text-accent">Privacy Policy</a>.
-                    </p>
+                    <Button variant="ghost" className="mt-8 bg-primary text-bg px-8 py-4 rounded text-lg font-semibold hover:bg-accent hover:text-bg transition shadow">Join the Beta</Button>
+
                 </div>
             </section>
 
-            {/* 2. Trusted By */}
-            <section className="py-16 text-center text-muted text-sm">
+            {/* Trusted By */}
+            <section
+                className="relative py-20 px-6 bg-bg text-text overflow-hidden"
+                style={{
+                    backgroundImage: "url('/images/section-bg.png')",
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                }}
+            >
+            <p className="py-16 text-center text-muted text-sm bg-surface border-t border-border">
                 Trusted by worldbuilders, authors, and game masters around the globe.
+            </p>
+            </ section>
+
+            {/* Feature Highlights */}
+            <section
+                className="relative py-20 px-6 bg-bg text-text overflow-hidden"
+                style={{
+                    backgroundImage: "url('/images/features-bg.png')",
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                }}
+            >
+                {/* Necromancer Illustration */}
+                <img
+                    src="/images/necromancer.png"
+                    alt="Necromancer"
+                    className="hidden md:block absolute right-0 bottom-0 h-full object-contain z-0 pointer-events-none select-none"
+                    style={{
+                        maxHeight: "100%",
+                    }}
+                />
+
+                {/* Grid Content */}
+                <div className="relative z-10 max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                    {[
+                        { title: "World Map Editor", image: "/images/feature-map.jpg" },
+                        { title: "Lore Manager", image: "/images/feature-lore.jpg" },
+                        { title: "Player Access", image: "/images/feature-access.jpg" },
+                        { title: "Campaign Planner", image: "/images/feature-campaign.jpg" },
+                        { title: "Scene Builder", image: "/images/feature-scene.jpg" },
+                        { title: "Character Sheets", image: "/images/feature-characters.jpg" },
+                    ].map((feature, index) => (
+                        <div
+                            key={index}
+                            className="group relative h-64 overflow-hidden rounded-lg shadow-lg border border-border"
+                        >
+                            <img
+                                src={feature.image}
+                                alt=""
+                                className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                            />
+                            <div className="absolute inset-0 bg-black/60 group-hover:bg-black/80 transition duration-300 z-10" />
+                            <div className="absolute inset-0 flex items-center justify-center z-20">
+                                <h3 className="text-2xl glow-text font-semibold  opacity-0 group-hover:opacity-100 transition duration-300">
+                                    {feature.title}
+                                </h3>
+                            </div>
+                        </div>
+                    ))}
+                </div>
             </section>
 
-            {/* 3. Feature Highlights */}
-            <section className="py-20 px-6 max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-12 text-center">
-                <div>
-                    <h3 className="text-primary text-xl font-semibold mb-2">World Map Editor</h3>
-                    <p className="text-muted">Upload, annotate, and explore high-res fantasy maps with ease.</p>
-                </div>
-                <div>
-                    <h3 className="text-primary text-xl font-semibold mb-2">Lore Manager</h3>
-                    <p className="text-muted">Organize characters, places, and plotlines with flexible linking.</p>
-                </div>
-                <div>
-                    <h3 className="text-primary text-xl font-semibold mb-2">Player Access</h3>
-                    <p className="text-muted">Share curated content with your players — hide the rest.</p>
-                </div>
-            </section>
-
-            {/* 4. Demo / Screenshot */}
+            {/* Demo Screenshot */}
             <section className="py-20 bg-surface border-t border-border text-center px-6">
-                <h2 className="text-2xl text-primary font-bold mb-6">See Scripted Realms in Action</h2>
-                <div className="rounded-lg overflow-hidden shadow-lg max-w-4xl mx-auto">
-                    <img src="/demo-screenshot.png" alt="App demo" className="w-full" />
+                <h2 className="text-4xl font-bold mb-6">See Scripted Realms in Action</h2>
+                <div className="rounded-lg overflow-hidden shadow-lg max-w-4xl mx-auto border border-border">
+                    <img src="https://placehold.co/800x400" alt="App demo" className="w-full" />
                 </div>
             </section>
 
-            {/* 5. Call to Action */}
-            <section className="py-24 text-center px-6">
-                <h2 className="text-primary text-3xl font-bold">Start Your Next Adventure</h2>
+            {/* CTA */}
+            <section
+                className="relative py-20 px-6 bg-bg text-text overflow-hidden py-24 text-center px-6 bg-surface-alt border-t border-border"
+                style={{
+                    backgroundImage: "url('/images/section-bg.png')",
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                }}
+            >
+                <h2 className="text-3xl font-bold">Start Your Next Adventure</h2>
                 <p className="text-muted mt-4 max-w-xl mx-auto">
                     Sign up and start building your next campaign or story world today.
                 </p>
-                <button className="mt-8 bg-accent text-bg px-8 py-4 rounded text-lg font-semibold hover:opacity-90">
-                    Join the Beta
-                </button>
+                <Button variant="ghost" className="mt-8 bg-primary text-bg px-8 py-4 rounded text-lg font-semibold hover:bg-accent hover:text-bg transition shadow">Join the Beta</Button>
             </section>
-
         </div>
     );
 };
