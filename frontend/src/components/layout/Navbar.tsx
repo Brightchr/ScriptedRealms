@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import Button from "./Button.tsx";
-import ThemeToggle from "./ThemeToggle.tsx";
+import Button from "../ui/Button.tsx";
+import AuthButton from "../ui/AuthButton.tsx";
 
 const Navbar = () => {
     const [menuOpen, setMenuOpen] = useState(false);
@@ -23,9 +23,11 @@ const Navbar = () => {
                 </nav>
 
                 {/* Buttons */}
-                <Button variant="accent">Login</Button>
-                <Button variant="primary">Sign Up</Button>
-                <ThemeToggle />
+                <div className="hidden md:flex items-center gap-4">
+                    <AuthButton />
+                    <Button variant="primary">Sign Up</Button>
+                </div>
+
 
                 {/* Mobile Menu Button */}
                 <button
@@ -43,6 +45,8 @@ const Navbar = () => {
                     <Link to="/features" className="block hover:text-accent transition">Features</Link>
                     <Link to="/docs" className="block hover:text-accent transition">Docs</Link>
                     <Link to="/about" className="block hover:text-accent transition">About</Link>
+                    <AuthButton />
+                    <Button variant="primary">Sign Up</Button>
                 </nav>
             )}
         </header>

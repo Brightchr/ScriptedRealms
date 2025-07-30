@@ -8,7 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
-
+import java.util.UUID;
 
 
 @Entity
@@ -34,4 +34,7 @@ public class User {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<PlayerCharacter> characters;
+
+    @OneToMany(mappedBy = "user")
+    private List<Connection> connections;
 }
