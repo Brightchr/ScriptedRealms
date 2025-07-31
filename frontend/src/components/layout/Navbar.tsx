@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import Button from "../ui/Button.tsx";
-import AuthButton from "../ui/AuthButton.tsx";
+import AuthButton from "../ui/LoginButton.tsx";
 
 const Navbar = () => {
     const [menuOpen, setMenuOpen] = useState(false);

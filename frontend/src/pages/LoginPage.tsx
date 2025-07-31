@@ -1,58 +1,98 @@
-import Button from "../components/ui/Button"
-import { useNavigate } from "react-router-dom"
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import Button from "../components/ui/Button";
 
 const LoginPage = () => {
-    const navigate = useNavigate()
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [error, setError] = useState("");
+    const navigate = useNavigate();
 
-    const handleLogin = () => {
-        const clientKey = import.meta.env.VITE_STACK_PUBLISHABLE_CLIENT_KEY
-        const redirectUri = import.meta.env.VITE_STACK_REDIRECT_URI
-        const projectId = import.meta.env.VITE_STACK_PROJECT_ID
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setError("");
 
-        const loginUrl = `https://auth.neon.tech/oauth/authorize?response_type=token&client_id=${clientKey}&redirect_uri=${encodeURIComponent(
-            redirectUri
-        )}&scope=openid%20email&project_id=${projectId}&state=sr_auth`
+        try {
+            const res = await fetch("http://localhost:8080/auth/login", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ email, password })
+            });
 
-        window.location.href = loginUrl
-    }
+            if (!res.ok) {
+                throw new Error("Invalid credentials");
+            }
+
+            const data = await res.json();
+            localStorage.setItem("auth_token", data.token);
+            navigate("/lobby");
+        } catch (err: any) {
+            setError(err.message || "Login failed");
+        }
+    };
 
     return (
-        <div className="relative min-h-screen bg-surface text-text flex items-center justify-center px-6 overflow-hidden">
-            {/* Background Image */}
-            <img
-                src="/images/herobackground.png"
-                alt="Login Background"
-                className="absolute inset-0 w-full h-full object-cover opacity-20"
+        <div className="min-h-screen flex flex-col items-center justify-center bg-surface text-text px-6 relative">
+            {/* Background */}
+            <div
+                className="absolute inset-0"
+                style={{
+                    backgroundImage: "url('/images/login-background.png')",
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                }}
             />
-
-            {/* Gradient Overlay */}
-            <div className="absolute inset-0 bg-black/50 z-10" />
+            <div className="absolute inset-0 bg-black/80 z-0" />
 
             {/* Login Form */}
-            <div className="relative z-20 w-full max-w-md bg-zinc-900 border border-border p-8 rounded-lg shadow-lg text-center">
-                <h1 className="text-4xl font-cinzel font-bold mb-4 glow-text">Welcome Back</h1>
-                <p className="text-muted mb-6">Log in to your worldbuilding realm</p>
+            <form
+                onSubmit={handleSubmit}
+                className="relative z-20 w-full max-w-md bg-zinc-900 p-8 rounded shadow border border-border space-y-6"
+            >
+                <h1 className="text-3xl font-bold text-center glow-text">Login</h1>
 
-                <Button
-                    variant="ghost"
-                    className="w-full bg-primary text-bg py-3 rounded text-lg font-semibold hover:bg-accent hover:text-bg transition shadow"
-                    onClick={handleLogin}
-                >
-                    Login with Neon
+                {error && <p className="text-red-500 text-sm text-center">{error}</p>}
+
+                <div>
+                    <label className="block text-sm mb-1">Email</label>
+                    <input
+                        type="email"
+                        className="w-full px-3 py-2 rounded bg-zinc-800 border border-border text-text"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        required
+                    />
+                </div>
+
+                <div>
+                    <label className="block text-sm mb-1">Password</label>
+                    <input
+                        type="password"
+                        className="w-full px-3 py-2 rounded bg-zinc-800 border border-border text-text"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        required
+                    />
+                </div>
+
+                <Button type="submit" className="w-full bg-primary text-bg font-semibold">
+                    Login
                 </Button>
 
-                <p className="mt-6 text-sm text-muted">
+                <p className="text-sm text-center text-muted">
                     Don’t have an account?{" "}
                     <span
-                        className="text-accent hover:underline cursor-pointer"
                         onClick={() => navigate("/signup")}
+                        className="text-accent hover:underline cursor-pointer"
                     >
-            Sign Up
-          </span>
+                        Sign Up
+                    </span>
                 </p>
-            </div>
+            </form>
         </div>
-    )
-}
+    );
+};
 
-export default LoginPage
+export default LoginPage;
