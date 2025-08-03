@@ -1,5 +1,6 @@
 import ReactFullpage from "@fullpage/react-fullpage";
 import Button from "../components/ui/Button.tsx";
+import FeatureGrid from "../components/ui/FeatureGrid.tsx";
 
 const HomePage = () => {
     return (
@@ -29,15 +30,20 @@ const HomePage = () => {
 
                     {/* 2. Trusted By */}
                     <div
-                        className="section relative flex items-center justify-center px-6 bg-bg text-text"
+                        className="section relative flex flex-col items-center justify-center px-6 bg-bg text-text overflow-hidden"
                         style={{
                             backgroundImage: "url('/images/section-bg.png')",
                             backgroundSize: "cover",
                             backgroundPosition: "center",
                         }}
                     >
-                        <p className="text-center text-muted text-xl bg-surface border-t border-border p-16">
-                            Trusted by worldbuilders, authors, and game masters around the globe.
+                        <img
+                            src="/images/skull.png"
+                            alt="Trusted By Logo"
+                            className="w-200 h-auto mb-6 transform transition-all duration-1000 translate-x-32 opacity-0 animate-slidein"
+                        />
+                        <p className="text-center text-muted text-2xl">
+                            Trusted by world builders, authors, and game masters around the globe.
                         </p>
                     </div>
 
@@ -45,45 +51,27 @@ const HomePage = () => {
                     <div
                         className="section relative px-6 py-20 bg-bg text-text overflow-hidden"
                         style={{
-                            backgroundImage: "url('/images/features-bg2.png')",
+                            backgroundImage: "url('/images/features-bg.png')",
                             backgroundSize: "cover",
                             backgroundPosition: "center",
                         }}
                     >
                         <h1 className="text-5xl font-bold mb-6 text-center relative z-20 glow-text">Features</h1>
-                        <img
-                            src="/images/necromancer.png"
-                            alt="Necromancer"
-                            className="hidden md:block absolute right-0 bottom-0 h-full object-contain z-10 pointer-events-none select-none"
-                            style={{ maxHeight: "100%" }}
-                        />
-                        <div className="relative z-10 max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                            {[
-                                { title: "World Map Editor", image: "/images/feature-map.png" },
-                                { title: "Lore Manager", image: "/images/feature-lore.png" },
-                                { title: "Player Access", image: "/images/feature-access.png" },
-                                { title: "Campaign Planner", image: "/images/feature-campaign.png" },
-                                { title: "Scene Builder", image: "/images/feature-scene.png" },
-                                { title: "Character Sheets", image: "/images/feature-characters.png" },
-                            ].map((feature, index) => (
-                                <div
-                                    key={index}
-                                    className="group relative h-64 overflow-hidden rounded-lg shadow-lg border border-border"
-                                >
-                                    <img
-                                        src={feature.image}
-                                        alt=""
-                                        className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                                    />
-                                    <div className="absolute inset-0 bg-black/20 group-hover:bg-black/80 transition duration-300 z-10" />
-                                    <div className="absolute inset-0 flex items-center justify-center z-20">
-                                        <h3 className="text-2xl glow-text font-semibold opacity-0 group-hover:opacity-100 transition duration-300">
-                                            {feature.title}
-                                        </h3>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
+                        {/*<img*/}
+                        {/*    src="/images/necromancer.png"*/}
+                        {/*    alt="Necromancer"*/}
+                        {/*    className="hidden md:block absolute right-0 bottom-0 h-full object-contain z-0 pointer-events-none select-none"*/}
+                        {/*    style={{ maxHeight: "100%" }}*/}
+                        {/*/>*/}
+                        {/* feature grid */}
+                        <FeatureGrid features={[
+                            { title: "World Map Editor", image: "/images/feature-map.png" },
+                            { title: "Lore Manager", image: "/images/feature-lore.png" },
+                            { title: "Player Access", image: "/images/feature-access.png" },
+                            { title: "Campaign Planner", image: "/images/feature-campaign.png" },
+                            { title: "Scene Builder", image: "/images/feature-scene.png" },
+                            { title: "Character Sheets", image: "/images/feature-characters.png" },
+                        ]} />
                     </div>
 
                     {/* 4. Demo Screenshot */}

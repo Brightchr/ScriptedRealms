@@ -83,3 +83,18 @@ body {
             0 0 40px rgba(255, 255, 255, 0.8);
 }
 
+@keyframes slidein {
+    0% {
+        transform: translateX(8rem);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.animate-slidein {
+    animation: slidein 1s ease-out forwards;
+}
+
