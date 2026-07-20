@@ -1,0 +1,7 @@
+{
+  "name": "scripted-realms",
+  "private": true,
+  "version": "0.0.1",
+  "description": "A virtual tabletop RPG platform",
+  "packageManager": "pnpm@11.5.2"
+}
